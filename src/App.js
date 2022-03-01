@@ -1,93 +1,72 @@
-import React from "react";
-import './App.css'
-import Culture from "./Image/Culture.jpg"
-import Experience from "./Image/Experience.jpg"
-import Lady from "./Image/Lady.png"
-import Diversity from "./Image/Diversity.png"
-import ManChild from "./Image/manChild.png"
-import Team from "./Image/Team.jpg"
+import React,{useState} from "react";
+import './App.css';
+
 
 
 function App (){
+// A State Capturing Inputs 
+  const [text, setText] = useState("");
 
-  const lsetf = [
-    
+//A state holding our datas
+  const [lsetf, setLsetf] = useState([
     {
-      picture: <img className="lsetf-img" src={Culture}/>,
-      name: "biola",
-      age: 15,
-      sex: "Female",
-      class: "Jss1",
-      address: "45, Akoka",
-    },
+      id: 1,
+      comment: "great!!!"
+    }
+  ]);
 
-    {
-      picture: <img className="lsetf-img" src={Diversity}/>,
-      name: "victor",
-      age: 30,
-      sex: "Male",
-      class: "Jss2",
-      address: "22, Shobande",
-    },
+// Function for Posting
+  const Post = () => {
+    const items = {
+      id : lsetf.length + 1,
+      comment: text,
+    };
+    setLsetf([...lsetf, items]);
+  // Responsible for Removing items in our input
+    setText("");
+  }
 
-    {
-      picture: <img className="lsetf-img" src={Experience}/>,
-      name: "james",
-      age: 40,
-      sex: "Male",    
-      class: "Jss3",
-      address: "44, Sholanke",
-    },
+  // const Delete = () => {
+  //   const items = {
+  //     id: "",
+  //     comment: "",
+  //   };
+  //   setLsetf([]);
+  //   setText("");
+  // };
 
-    {
-      picture: <img className="lsetf-img" src={Lady}/>,
-      name: "Wura",
-      age: 20,
-      sex: "Female",
-      class: "Jss1",
-      address: "77, Shear",
-    },
-
-    {
-      picture: <img className="lsetf-img" src={ManChild}/>,
-      name: "Grace",
-      age: 26,
-      sex: "Female",
-      class: "Jss3",
-      address: "25, shomolu",
-    },
-
-    {
-      picture: <img className="lsetf-img" src={Team}/>,
-      name: "Akeem",
-      age: 40,
-      sex: "Male",
-      class: "Jss2",
-      address: "34, Shanke",
-    },
-  ]
-
+  console.log(lsetf)
+  console.log(text)
 
   return(
     <div className="CardHolder">
+      <br/>
+{/* OUR INPUT */}
+      <input className="comment" value={text} onChange={(e)=>{setText(e.target.value)
+         console.log(text)
+      }} placeholder="Comment"/>
+      <br />
+
+{/* BUTTON FOR CALLING OUR POST FUNCTION */}
+      <button onClick={()=>{
+        Post()
+        console.log('Have Posted')
+      }}>Post</button>
+
+{/* This is where our Datas are being Mapped */}
       {lsetf.map((props)=>(
         <div className="Card">
-          <div>{props.picture}</div>
-          <div>Name:{props.name}</div>
-          <div>Age:{props.age}</div>
-          <div>Sex:{props.sex}</div>
-          <div>Class:{props.class}</div>
-          <div>Address:{props.address}</div>
+          <div>{props.id} .</div>
+          <div>Comment:  {props.comment}   <button className="" onClick={()=>{Delete()}}>Delete</button></div>
         </div>
       ))}
+
+
     </div>
   )
 }
 
 export default App
-
-
-
 
 
 
